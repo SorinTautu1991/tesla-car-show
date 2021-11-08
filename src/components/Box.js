@@ -8,9 +8,9 @@ const Box = props => {
     ref.current.rotation.y += 0.01;
   });
   return (
-    <mesh ref={ref} {...props}>
+    <mesh ref={ref} {...props} castShadow receiveShadow>
       <boxBufferGeometry />
-      <meshBasicMaterial color="blue" />
+      <meshPhysicalMaterial color="blue" />
     </mesh>
   );
 };
