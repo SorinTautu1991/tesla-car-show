@@ -10,6 +10,7 @@ import ColorPicker from "./components/ColorPicker";
 import Dragable from "./components/Dragable";
 import { Physics } from "@react-three/cannon";
 import Model from "./components/Model";
+import BoundingBox from "./components/BoundingBox";
 
 const App = () => {
   return (
@@ -26,21 +27,35 @@ const App = () => {
         <Bulb position={[0, 3, 0]} />
         <axesHelper args={[5]} />
         <Physics>
-          <Dragable>
-            <Suspense fallback={null}>
-              <Model
-                path="/tesla-model-3/scene.gltf"
-                scale={new Array(3).fill(0.01)}
-                position={[4, 0.6, 0]}
-              />
-              <Model
-                path="/tesla-roadster/scene.gltf"
-                scale={new Array(3).fill(15)}
-                position={[-4, 0, 0]}
-                rotation={[0, -1.5, 0]}
-              />
-            </Suspense>
-          </Dragable>
+          <Suspense fallback={null}>
+            <Dragable transformGroup>
+              <BoundingBox
+                visible
+                position={[4, 1, 0]}
+                dims={[3, 2, 6]}
+                offset={[0, -0.4, 0.8]}
+              >
+                <Model
+                  path="/tesla-model-3/scene.gltf"
+                  scale={new Array(3).fill(0.01)}
+                />
+              </BoundingBox>
+            </Dragable>
+            <Dragable transformGroup>
+              <BoundingBox
+                visible
+                position={[-4, 1, 0]}
+                dims={[3, 2, 7]}
+                offset={[0, -0.8, 2]}
+              >
+                <Model
+                  path="/tesla-roadster/scene.gltf"
+                  scale={new Array(3).fill(15)}
+                  rotation={[0, -1.5, 0]}
+                />
+              </BoundingBox>
+            </Dragable>
+          </Suspense>
           <Suspense fallback={null}>
             <Background />
           </Suspense>
