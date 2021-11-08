@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 
 const Box = props => {
   const ref = useRef();
+  const texture = useLoader(THREE.TextureLoader, "/wood.jpg");
   useFrame(state => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
@@ -15,16 +16,8 @@ const Box = props => {
       castShadow
       // receiveShadow
     >
-      <boxBufferGeometry />
-      <meshPhysicalMaterial
-        color="white"
-        roughness={0}
-        clearcoat={1}
-        transmission={0.7}
-        transparent
-        reflectivity={1}
-        side={THREE.DoubleSide}
-      />
+      <sphereBufferGeometry args={[1, 100, 100]} />
+      <meshPhysicalMaterial map={texture} />
     </mesh>
   );
 };
