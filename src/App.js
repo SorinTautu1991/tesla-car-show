@@ -31,14 +31,14 @@ const App = () => {
               <Model
                 path="/tesla-model-3/scene.gltf"
                 scale={new Array(3).fill(0.01)}
-                position={[0, 0.6, 0]}
+                position={[4, 0.6, 0]}
               />
-            </Suspense>
-            <Suspense fallback={null}>
-              <Box position={[-4, 1, 0]} />
-            </Suspense>
-            <Suspense fallback={null}>
-              <Box position={[4, 1, 0]} />
+              <Model
+                path="/tesla-roadster/scene.gltf"
+                scale={new Array(3).fill(15)}
+                position={[-4, 0, 0]}
+                rotation={[0, -1.5, 0]}
+              />
             </Suspense>
           </Dragable>
           <Suspense fallback={null}>
