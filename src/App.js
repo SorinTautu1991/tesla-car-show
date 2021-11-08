@@ -6,13 +6,18 @@ import Orbit from "./components/Orbit";
 import Floor from "./components/Floor";
 import Bulb from "./components/Bulb";
 import Background from "./components/Background";
+import ColorPicker from "./components/ColorPicker";
+import Dragable from "./components/Dragable";
+import { Physics } from "@react-three/cannon";
+import Model from "./components/Model";
 
 const App = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
+      <ColorPicker />
       <Canvas
         style={{ background: "black" }}
-        camera={{ position: [3, 3, 3] }}
+        camera={{ position: [7, 7, 7] }}
         shadows
       >
         {/* <fog attach="fog" args={["white", 1, 10]} /> */}
@@ -20,13 +25,27 @@ const App = () => {
         <ambientLight intensity={0.2} />
         <Bulb position={[0, 3, 0]} />
         <axesHelper args={[5]} />
-        <Suspense fallback={null}>
-          <Box position={[0, 1, 0]} />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Background />
-        </Suspense>
-        <Floor position={[0, -0.5, 0]} />
+        <Physics>
+          <Dragable>
+            <Suspense fallback={null}>
+              <Model
+                path="/tesla-model-3/scene.gltf"
+                scale={new Array(3).fill(0.01)}
+                position={[0, 0.6, 0]}
+              />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Box position={[-4, 1, 0]} />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Box position={[4, 1, 0]} />
+            </Suspense>
+          </Dragable>
+          <Suspense fallback={null}>
+            <Background />
+          </Suspense>
+          <Floor position={[0, -0.5, 0]} />
+        </Physics>
       </Canvas>
     </div>
   );
