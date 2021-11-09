@@ -32,6 +32,9 @@ const Cars = () => {
           />
         </BoundingBox>
       </Dragable>
+      <group>
+        <Model path="/mech-drone/scene.gltf" scale={new Array(3).fill(0.01)} />
+      </group>
     </Suspense>
   );
 };
