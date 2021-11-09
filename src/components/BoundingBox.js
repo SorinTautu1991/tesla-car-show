@@ -6,6 +6,7 @@ const BoundingBox = ({
   offset = [0, 0, 0],
   dims = [1, 1, 1],
   visible = false,
+  rotation = [0, 0, 0],
   children,
 }) => {
   const [ref, api] = useBox(() => ({
@@ -19,7 +20,9 @@ const BoundingBox = ({
         <boxBufferGeometry />
         <meshPhysicalMaterial wireframe />
       </mesh>
-      <group position={offset}>{children}</group>
+      <group position={offset} rotation={rotation}>
+        {children}
+      </group>
     </group>
   );
 };

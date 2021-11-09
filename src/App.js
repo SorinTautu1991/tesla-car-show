@@ -7,58 +7,42 @@ import Floor from "./components/Floor";
 import Bulb from "./components/Bulb";
 import Background from "./components/Background";
 import ColorPicker from "./components/ColorPicker";
-import Dragable from "./components/Dragable";
 import { Physics } from "@react-three/cannon";
-import Model from "./components/Model";
-import BoundingBox from "./components/BoundingBox";
+import Cars from "./components/Cars";
+import CameraControls from "./components/CameraControls";
+import CameraButtons from "./components/CameraButtons";
 
 const App = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ColorPicker />
+      <CameraButtons />
       <Canvas
         style={{ background: "black" }}
-        camera={{ position: [7, 7, 7] }}
+        camera={{ position: [-4, 7, -10] }}
         shadows
       >
+        <CameraControls />
         {/* <fog attach="fog" args={["white", 1, 10]} /> */}
         <Orbit />
         <ambientLight intensity={0.2} />
+        <directionalLight
+          position={[6, 3, 0]}
+          intensity={2}
+          castShadow
+          shadow-mapSize-width={2 ** 10}
+          shadow-mapSize-height={2 ** 10}
+        />
+        <Bulb position={[-6, 3, 0]} />
         <Bulb position={[0, 3, 0]} />
+        <Bulb position={[6, 3, 0]} />
         <axesHelper args={[5]} />
+        <Suspense fallback={null}>
+          <Background />
+        </Suspense>
         <Physics>
-          <Suspense fallback={null}>
-            <Dragable transformGroup>
-              <BoundingBox
-                visible
-                position={[4, 1, 0]}
-                dims={[3, 2, 6]}
-                offset={[0, -0.4, 0.8]}
-              >
-                <Model
-                  path="/tesla-model-3/scene.gltf"
-                  scale={new Array(3).fill(0.01)}
-                />
-              </BoundingBox>
-            </Dragable>
-            <Dragable transformGroup>
-              <BoundingBox
-                visible
-                position={[-4, 1, 0]}
-                dims={[3, 2, 7]}
-                offset={[0, -0.8, 2]}
-              >
-                <Model
-                  path="/tesla-roadster/scene.gltf"
-                  scale={new Array(3).fill(15)}
-                  rotation={[0, -1.5, 0]}
-                />
-              </BoundingBox>
-            </Dragable>
-          </Suspense>
-          <Suspense fallback={null}>
-            <Background />
-          </Suspense>
+          <Cars />
+
           <Floor position={[0, -0.5, 0]} />
         </Physics>
       </Canvas>
