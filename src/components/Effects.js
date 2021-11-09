@@ -4,7 +4,6 @@ import {
   EffectComposer,
   DepthOfField,
   Bloom,
-  GodRays,
 } from "@react-three/postprocessing";
 
 const Effects = () => {
